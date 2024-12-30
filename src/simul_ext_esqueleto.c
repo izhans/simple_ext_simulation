@@ -78,6 +78,10 @@ int main()
 			Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent); // ? aqui o quito el continue?
 			continue;
 		}
+		if (strcmp(orden, "remove") == 0)
+		{
+			Borrar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, argumento1, fent);
+		}
 		// TODO...
 		// Escritura de metadatos en comandos rename, remove, copy
 		Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent);
