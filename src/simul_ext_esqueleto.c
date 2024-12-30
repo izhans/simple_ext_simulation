@@ -50,6 +50,8 @@ int main()
 			fflush(stdin);
 			fgets(comando, LONGITUD_COMANDO, stdin);
 		} while (ComprobarComando(comando, orden, argumento1, argumento2) != 0);
+		printf("tokens comando en main <%s> <%s> <%s>\n", orden, argumento1, argumento2);
+		printf("tokens comando en main <%p> <%p> <%p>\n", orden, argumento1, argumento2);
 		if (strcmp(orden, "dir") == 0)
 		{
 			Directorio(directorio, &ext_blq_inodos);
