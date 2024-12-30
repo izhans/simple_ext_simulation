@@ -72,6 +72,12 @@ int main()
 			Imprimir(directorio, &ext_blq_inodos, memdatos, argumento1);
 			continue;
 		}
+		if (strcmp(orden, "rename") == 0)
+		{
+			Renombrar(directorio, &ext_blq_inodos, argumento1, argumento2);
+			Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent); // ? aqui o quito el continue?
+			continue;
+		}
 		// TODO...
 		// Escritura de metadatos en comandos rename, remove, copy
 		Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent);
