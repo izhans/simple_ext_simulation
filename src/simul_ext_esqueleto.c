@@ -57,6 +57,11 @@ int main()
 			LeeSuperBloque(&ext_superblock);
 			continue;
 		}
+		if (strcmp(orden, "bytemaps") == 0)
+		{
+			Printbytemaps(&ext_bytemaps);
+			continue;
+		}
 		if (strcmp(orden, "dir") == 0)
 		{
 			Directorio(directorio, &ext_blq_inodos);
