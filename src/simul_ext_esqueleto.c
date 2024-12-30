@@ -52,6 +52,11 @@ int main()
 		} while (ComprobarComando(comando, orden, argumento1, argumento2) != 0);
 		printf("tokens comando en main <%s> <%s> <%s>\n", orden, argumento1, argumento2);
 		printf("tokens comando en main <%p> <%p> <%p>\n", orden, argumento1, argumento2);
+		if (strcmp(orden, "info") == 0)
+		{
+			LeeSuperBloque(&ext_superblock);
+			continue;
+		}
 		if (strcmp(orden, "dir") == 0)
 		{
 			Directorio(directorio, &ext_blq_inodos);
