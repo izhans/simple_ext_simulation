@@ -11,27 +11,35 @@ int main()
 
 	int i, j;
 	unsigned long int m;
-	EXT_SIMPLE_SUPERBLOCK ext_superblock;
-	EXT_BYTE_MAPS ext_bytemaps;
-	EXT_BLQ_INODOS ext_blq_inodos;
-	EXT_ENTRADA_DIR directorio[MAX_FICHEROS];
-	EXT_DATOS memdatos[MAX_BLOQUES_DATOS];
-	EXT_DATOS datosfich[MAX_BLOQUES_PARTICION];
+	EXT_SIMPLE_SUPERBLOCK	ext_superblock;
+	EXT_BYTE_MAPS			ext_bytemaps;
+	EXT_BLQ_INODOS			ext_blq_inodos;
+	EXT_ENTRADA_DIR			directorio[MAX_FICHEROS];
+	EXT_DATOS				memdatos[MAX_BLOQUES_DATOS];
+	EXT_DATOS				datosfich[MAX_BLOQUES_PARTICION];
 	int entradadir;
 	int grabardatos;
 	FILE *fent;
-
+	
 	// Lectura del fichero completo de una sola vez
-	// TODO...
-
-	fent = fopen("../particion.bin", "r+b");
+	fent = fopen("particion.bin", "r+b");
+	if (fent == NULL)
+	{
+		printf("Ha habido un problema abriendo el fichero\n");
+		return (1);
+	}
 	fread(&datosfich, SIZE_BLOQUE, MAX_BLOQUES_PARTICION, fent);
 
-	memcpy(&ext_superblock, (EXT_SIMPLE_SUPERBLOCK *)&datosfich[0], SIZE_BLOQUE);
-	memcpy(&directorio, (EXT_ENTRADA_DIR *)&datosfich[3], SIZE_BLOQUE);
-	memcpy(&ext_bytemaps, (EXT_BLQ_INODOS *)&datosfich[1], SIZE_BLOQUE);
-	memcpy(&ext_blq_inodos, (EXT_BLQ_INODOS *)&datosfich[2], SIZE_BLOQUE);
-	memcpy(&memdatos, (EXT_DATOS *)&datosfich[4], MAX_BLOQUES_DATOS * SIZE_BLOQUE);
+	/**
+	 * Volcado de datos del fichero a las estructuras del sistema de ficheros.
+	 * El superbloque, los bytemaps y la lista de inodos ocupan un bloque cada uno,
+	 * por lo que me parece mas limpio y legible poner el tamaño de su propia estructura
+	 */
+	memmove(&ext_superblock, &datosfich[0], sizeof(EXT_SIMPLE_SUPERBLOCK));
+	memmove(&ext_bytemaps, &datosfich[1], sizeof(EXT_BYTE_MAPS));
+	memmove(&ext_blq_inodos, &datosfich[2], sizeof(EXT_BLQ_INODOS));
+	memmove(&directorio, &datosfich[3], MAX_FICHEROS * sizeof(EXT_ENTRADA_DIR));
+	memmove(&memdatos, &datosfich[4], MAX_BLOQUES_DATOS * SIZE_BLOQUE);
 
 	// Bucle de tratamiento de comandos
 	for (;;)

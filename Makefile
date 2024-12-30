@@ -1,7 +1,7 @@
 # Variables
 NAME = ext
 CC = cc
-# FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 SRCS = 	src/simul_ext_esqueleto.c	\
 		src/print_bytemaps.c		\
 		src/comprobar_comando.c		\
@@ -15,7 +15,7 @@ SRCS = 	src/simul_ext_esqueleto.c	\
 		src/grabar.c				\
 
 # Rules
-.PHONY: all clean fclean re
+.PHONY: all flags clean fclean re
 
 # Compiles project
 all: $(NAME)
@@ -23,7 +23,10 @@ all: $(NAME)
 # Compiles ext from src files
 $(NAME): $(SRCS)
 	$(CC) $(SRCS) -o $(NAME)
-#	$(CC) $(FLAGS) -c $(SRCS)
+
+# Compiles with -W flags
+flags:
+	$(CC) $(FLAGS) $(SRCS) -o $(NAME)
 
 # Cleans temporary files but not the executable
 clean:
