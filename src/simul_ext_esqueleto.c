@@ -1,16 +1,13 @@
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
 #include "cabeceras.h"
 
 #define LONGITUD_COMANDO 100
 
 int main()
 {
-	char *comando[LONGITUD_COMANDO];
-	char *orden[LONGITUD_COMANDO];
-	char *argumento1[LONGITUD_COMANDO];
-	char *argumento2[LONGITUD_COMANDO];
+	char comando[LONGITUD_COMANDO];
+	char orden[LONGITUD_COMANDO];
+	char argumento1[LONGITUD_COMANDO];
+	char argumento2[LONGITUD_COMANDO];
 
 	int i, j;
 	unsigned long int m;
@@ -47,22 +44,22 @@ int main()
 		} while (ComprobarComando(comando, orden, argumento1, argumento2) != 0);
 		if (strcmp(orden, "dir") == 0)
 		{
-			Directorio(&directorio, &ext_blq_inodos);
+			Directorio(directorio, &ext_blq_inodos);
 			continue;
 		}
 		// TODO...
 		// Escritura de metadatos en comandos rename, remove, copy
-		Grabarinodosydirectorio(&directorio, &ext_blq_inodos, fent);
+		Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent);
 		GrabarByteMaps(&ext_bytemaps, fent);
 		GrabarSuperBloque(&ext_superblock, fent);
 		if (grabardatos)
-			GrabarDatos(&memdatos, fent);
+			GrabarDatos(memdatos, fent);
 		grabardatos = 0;
 		// Si el comando es salir se habrán escrito todos los metadatos
 		// faltan los datos y cerrar
 		if (strcmp(orden, "salir") == 0)
 		{
-			GrabarDatos(&memdatos, fent);
+			GrabarDatos(memdatos, fent);
 			fclose(fent);
 			return 0;
 		}

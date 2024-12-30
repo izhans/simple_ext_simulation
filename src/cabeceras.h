@@ -1,3 +1,10 @@
+#ifndef CABECERAS_H
+# define CABECERAS_H
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
 #define SIZE_BLOQUE 512
 #define MAX_INODOS 24
 #define MAX_FICHEROS 20
@@ -78,3 +85,5 @@ void	Grabarinodosydirectorio(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos
 void	GrabarByteMaps(EXT_BYTE_MAPS *ext_bytemaps, FILE *fich);
 void	GrabarSuperBloque(EXT_SIMPLE_SUPERBLOCK *ext_superblock, FILE *fich);
 void	GrabarDatos(EXT_DATOS *memdatos, FILE *fich);
+
+#endif // CABECERAS_H
