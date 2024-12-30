@@ -67,6 +67,11 @@ int main()
 			Directorio(directorio, &ext_blq_inodos);
 			continue;
 		}
+		if (strcmp(orden, "imprimir") == 0)
+		{
+			Imprimir(directorio, &ext_blq_inodos, memdatos, argumento1);
+			continue;
+		}
 		// TODO...
 		// Escritura de metadatos en comandos rename, remove, copy
 		Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent);
