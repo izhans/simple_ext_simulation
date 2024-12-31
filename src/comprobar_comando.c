@@ -1,5 +1,7 @@
 #include "cabeceras.h"
 
+#define LONGITUD_COMANDO 100
+
 /**
  * @brief comprueba si un comando existe y lo separa en orden y argumentos
  * @param strcomando el comando que se recibe del usuario
@@ -11,6 +13,12 @@
  */
 int		ComprobarComando(char *strcomando, char *orden, char *argumento1, char *argumento2)
 {
+	// limpio los datos recogidos del comando anterior
+	bzero(orden, LONGITUD_COMANDO);
+	bzero(argumento1, LONGITUD_COMANDO);
+	bzero(argumento2, LONGITUD_COMANDO);
+
+	// recojo la orden
 	char *token = strtok(strcomando, " \n");
 	if (token == NULL)
 	{
@@ -19,7 +27,7 @@ int		ComprobarComando(char *strcomando, char *orden, char *argumento1, char *arg
 	}
 	strcpy(orden, token);
 
-	// si no es ninguno de los comandos conocidos, devuelve error
+	// si no es ninguna de las ordenes conocidas, devuelve error
 	if (strcmp(orden, "info") && strcmp(orden, "bytemaps") && strcmp(orden, "dir")
 		&& strcmp(orden, "rename") && strcmp(orden, "imprimir") && strcmp(orden, "remove")
 		&& strcmp(orden, "copy") && strcmp(orden, "salir")
@@ -34,18 +42,26 @@ int		ComprobarComando(char *strcomando, char *orden, char *argumento1, char *arg
 		|| strcmp(orden, "dir") == 0 || strcmp(orden, "salir") == 0)
 		return (0);
 	
+	// recojo argumento1
 	token = strtok(NULL, " \n");
 	if (token == NULL)
 	{
-		printf("El comando %s requiere argumentos\n", orden);
+		printf("El comando %s requiere al menos un argumento\n", orden);
 		return (1);
 	}
 	strcpy(argumento1, token);
 
-	// TODO pendiente validacion del 2o argumento
+	// si es un comando que solo requiere un argumento se devuelve como valido y no se comprueba el 2o argumento
+	if (strcmp(orden, "imprimir") == 0 || strcmp(orden, "remove") == 0)
+		return (0);
+
+	// recojo argumento2
 	token = strtok(NULL, " \n");
 	if (token == NULL)
-		return (0);
+	{
+		printf("El comando %s requiere 2 argumentos\n", orden);
+		return (1);
+	}
 	strcpy(argumento2, token);
 
 	return (0);
