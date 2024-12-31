@@ -82,6 +82,10 @@ int main()
 		{
 			Borrar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, argumento1, fent);
 		}
+		if (strcmp(orden, "copy") == 0)
+		{
+			Copiar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, memdatos, argumento1, argumento2, fent);
+		}
 		// TODO...
 		// Escritura de metadatos en comandos rename, remove, copy
 		Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent);
