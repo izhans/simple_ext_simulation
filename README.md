@@ -9,17 +9,15 @@ Aquí se encuentra el [enunciado completo](subject/INSD_SSOO_U5_Actividad_Práct
 | Comando o funcionalidad | Puntuación | Estado |
 |-|-|-|
 | Arranque del programa, lectura de particion.bin e inicialización de variables con control de errores.<br>Bucle de petición y lectura de comandos| 1 punto | ✅ |
-| Salir y mensaje de error si no existe el comando | 0.5 puntos | 🏗️ : falta guardar datos al salir |
+| Salir y mensaje de error si no existe el comando | 0.5 puntos | ✅ |
 | Info | 0.5 puntos | ✅ |
 | Bytemaps | 0.5 puntos | ✅ |
 | Dir | 0.5 puntos | ✅ |
-| Rename | 0.5 puntos | 🏗️ : falta guardar datos |
-| Remove | 1 punto para ficheros de 1 bloque<br>1.5 puntos para ficheros multibloque | 🏗️ : falta guardar datos |
+| Rename | 0.5 puntos | ✅ |
+| Remove | 1 punto para ficheros de 1 bloque<br>1.5 puntos para ficheros multibloque | ✅ |
 | Imprimir | 1 punto para ficheros de 1 bloque<br>1.5 puntos para ficheros multibloque | ✅ con multibloque |
-| Copiar | 1 punto para ficheros de 1 bloque<br>2.5 puntos para ficheros multibloque |-|
+| Copiar | 1 punto para ficheros de 1 bloque<br>2.5 puntos para ficheros multibloque | ✅ con multibloque |
 | Commits y código documentado y estructurado.<br>El video forma parte de la documentación. | 1 punto |-|
-
----
 
 ## Dificultades o problemas encontrados durante el desarrollo:
 - Arranque, lectura e inicialización de variables:
