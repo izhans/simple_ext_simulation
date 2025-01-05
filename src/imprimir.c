@@ -30,7 +30,7 @@ int	Imprimir(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos, EXT_DATOS *mem
 	for (size_t j = 0; fichero.i_nbloque[j] != NULL_BLOQUE; j++)
 	{
 		bloque = GetBloque(memdatos, fichero.i_nbloque[j]);
-		printf("%s", bloque.dato);
+		printf("%1.512s", bloque.dato);
 	}
 	printf("\n");
 	return (0);

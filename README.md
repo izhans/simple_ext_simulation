@@ -17,7 +17,7 @@ Aquí se encuentra el [enunciado completo](subject/INSD_SSOO_U5_Actividad_Práct
 | Remove | 1 punto para ficheros de 1 bloque<br>1.5 puntos para ficheros multibloque | ✅ |
 | Imprimir | 1 punto para ficheros de 1 bloque<br>1.5 puntos para ficheros multibloque | ✅ con multibloque |
 | Copiar | 1 punto para ficheros de 1 bloque<br>2.5 puntos para ficheros multibloque | ✅ con multibloque |
-| Commits y código documentado y estructurado.<br>El video forma parte de la documentación. | 1 punto |-|
+| Commits y código documentado y estructurado.<br>El video forma parte de la documentación. | 1 punto | ✅ |
 
 ## Dificultades o problemas encontrados durante el desarrollo:
 - Arranque, lectura e inicialización de variables:
@@ -41,3 +41,10 @@ Aquí se encuentra el [enunciado completo](subject/INSD_SSOO_U5_Actividad_Práct
 	El problema fue tan simple como que se me había olvidado tener en cuenta que los bloques de datos eran 96, no 100 que corresponde a los bloques de toda la partición (incluyendo superbloque, bytemaps, lista de inodos y directorio).
 
 	Lo solucioné haciendo una "traducción" del índice del bloque al que intentaba acceder restandole 4 (que corresponde al número de bloques que no son de datos).
+
+- Comando imprimir multibloque:
+
+	Al imprimir el fichero multibloque con printf(%s) me imprimía un caracter extraño al final de cada bloque (cada 512 caracteres).
+
+	Para solucionarlo he añadido a printf especificadores de la longitud mínima y máxima que puede imprimir (printf %\<min\>.\<max\>s), capando de esta forma que imprima el caracter extraño del final de cada bloque.
+	El campo de la longitud mínima lo he tenido que añadir porque si no me ponía espacio en blanco antes del contenido para llegar a imprimir 512 caracteres.
