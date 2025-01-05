@@ -72,7 +72,7 @@ int		BuscaFich(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 			  char *nombre);
 void	Directorio(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos);
 int		Renombrar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
-			  char *nombreantiguo, char *nombrenuevo);
+			  char *nombreantiguo, char *nombrenuevo, FILE *fich);
 int		Imprimir(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 			 EXT_DATOS *memdatos, char *nombre);
 int		Borrar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,

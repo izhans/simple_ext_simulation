@@ -69,5 +69,10 @@ int	Borrar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 	//  - inodo = 0xFFFF
 	directorio[entrada_fichero].dir_inodo = NULL_INODO;
 
+	// grabar metadatos
+	Grabarinodosydirectorio(directorio, inodos, fich);
+	GrabarByteMaps(ext_bytemaps, fich);
+	GrabarSuperBloque(ext_superblock, fich);
+
 	return (0);
 }

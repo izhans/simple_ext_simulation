@@ -9,11 +9,8 @@
  * @param returns 1 si ha habido un error o 0 si se ha hecho el cambio
  */
 int	Renombrar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
-	char *nombreantiguo, char *nombrenuevo)
+	char *nombreantiguo, char *nombrenuevo, FILE *fich)
 {
-	int inodo;
-	EXT_SIMPLE_INODE fichero;
-
 	int entrada_fichero = BuscaFich(directorio, inodos, nombreantiguo);
 	if (!entrada_fichero)
 	{
@@ -32,6 +29,7 @@ int	Renombrar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 	}
 	
 	strncpy(directorio[entrada_fichero].dir_nfich, nombrenuevo, LEN_NFICH);
+	Grabarinodosydirectorio(directorio, inodos, fich);
 	
 	return (0);
 }

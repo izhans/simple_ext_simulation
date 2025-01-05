@@ -51,6 +51,7 @@ int main()
 			fflush(stdin);
 			fgets(comando, LONGITUD_COMANDO, stdin);
 		} while (ComprobarComando(comando, orden, argumento1, argumento2) != 0);
+
 		if (strcmp(orden, "info") == 0)
 		{
 			LeeSuperBloque(&ext_superblock);
@@ -73,28 +74,17 @@ int main()
 		}
 		if (strcmp(orden, "rename") == 0)
 		{
-			if (Renombrar(directorio, &ext_blq_inodos, argumento1, argumento2))
-				continue;
-			Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent);
+			Renombrar(directorio, &ext_blq_inodos, argumento1, argumento2, fent);
 			continue;
 		}
 		if (strcmp(orden, "remove") == 0)
 		{
-			if (Borrar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, argumento1, fent))
-				continue;
-			Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent);
-			GrabarByteMaps(&ext_bytemaps, fent);
-			GrabarSuperBloque(&ext_superblock, fent);
+			Borrar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, argumento1, fent);
 			continue;
 		}
 		if (strcmp(orden, "copy") == 0)
 		{
-			if (Copiar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, memdatos, argumento1, argumento2, fent))
-				continue;
-			GrabarDatos(memdatos, fent);
-			Grabarinodosydirectorio(directorio, &ext_blq_inodos, fent);
-			GrabarByteMaps(&ext_bytemaps, fent);
-			GrabarSuperBloque(&ext_superblock, fent);
+			Copiar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, memdatos, argumento1, argumento2, fent);
 			continue;
 		}
 		if (strcmp(orden, "salir") == 0)

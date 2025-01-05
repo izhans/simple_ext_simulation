@@ -76,6 +76,12 @@ int	Copiar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 	directorio[entrada_copia].dir_inodo = index_inodo_copia;
 	strncpy(directorio[entrada_copia].dir_nfich, nombredestino, LEN_NFICH);
 
+	// grabar datos
+	GrabarDatos(memdatos, fich);
+	Grabarinodosydirectorio(directorio, inodos, fich);
+	GrabarByteMaps(ext_bytemaps, fich);
+	GrabarSuperBloque(ext_superblock, fich);
+
 	return (0);
 }
 
