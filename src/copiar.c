@@ -1,5 +1,6 @@
 #include "cabeceras.h"
 
+int ErroresIniciales(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos, char *nombreorigen, char *nombredestino, int entrada_fichero);
 int BuscaInodoLibre(EXT_BYTE_MAPS *ext_bytemaps);
 int BuscaBloqueLibre(EXT_BYTE_MAPS *ext_bytemaps);
 int	BuscaEntradaDirLibre(EXT_ENTRADA_DIR *directorio);
@@ -22,21 +23,8 @@ int	Copiar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 {
 	// tratamiento de errores iniciales
 	int entrada_fichero = BuscaFich(directorio, inodos, nombreorigen);
-	if (!entrada_fichero)
-	{
-		printf("ERROR: El fichero %s no existe\n", nombreorigen);
+	if (ErroresIniciales(directorio, inodos, nombreorigen, nombredestino, entrada_fichero))
 		return (1);
-	}
-	if (BuscaFich(directorio, inodos, nombredestino))
-	{
-		printf("ERROR: El fichero %s ya existe\n", nombredestino);
-		return (1);
-	}
-	if (strlen(nombredestino) > LEN_NFICH -1)
-	{
-		printf("ERROR: El nombre nuevo para el fichero (%s) es demasiado largo. Max %d caracteres.\n", nombredestino, LEN_NFICH);
-		return (1);
-	}
 
 	// buscar inodo libre
 	int index_inodo_copia = BuscaInodoLibre(ext_bytemaps);
@@ -65,11 +53,16 @@ int	Copiar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 	ext_superblock->s_free_inodes_count--;
 
 	// copiar bloques
-	int bloque_libre; // TODO comprobar que hay suficientes bloques libres para copiar?
+	int bloque_libre;
 	int num_bloque_libre;
 	for (int i = 0; (*inodo_original).i_nbloque[i] != NULL_BLOQUE; i++)
 	{
 		bloque_libre = BuscaBloqueLibre(ext_bytemaps);
+		if (bloque_libre == -1)
+		{
+			printf("ERROR: Se ha alcanzado el número máximo de bloques de datos y no se puede seguir copiando\n");
+			break;
+		}
 		num_bloque_libre = bloque_libre + PRIM_BLOQUE_DATOS;
 		(*inodo_copia).i_nbloque[i] = num_bloque_libre;
 		memmove(&memdatos[bloque_libre], &memdatos[(*inodo_original).i_nbloque[i] - PRIM_BLOQUE_DATOS], SIZE_BLOQUE);
@@ -86,6 +79,33 @@ int	Copiar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 	return (0);
 }
 
+/**
+ * @brief checkea si hay errores iniciales
+ */
+int ErroresIniciales(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
+	char *nombreorigen, char *nombredestino, int entrada_fichero)
+{
+	if (!entrada_fichero)
+	{
+		printf("ERROR: El fichero %s no existe\n", nombreorigen);
+		return (1);
+	}
+	if (BuscaFich(directorio, inodos, nombredestino))
+	{
+		printf("ERROR: El fichero %s ya existe\n", nombredestino);
+		return (1);
+	}
+	if (strlen(nombredestino) > LEN_NFICH -1)
+	{
+		printf("ERROR: El nombre nuevo para el fichero (%s) es demasiado largo. Max %d caracteres.\n", nombredestino, LEN_NFICH);
+		return (1);
+	}
+	return (0);
+}
+
+/**
+ * @brief busca el primer inodo libre en el bytemap
+ */
 int BuscaInodoLibre(EXT_BYTE_MAPS *ext_bytemaps)
 {
 	for (size_t i = 0; i < MAX_INODOS; i++)
@@ -96,6 +116,9 @@ int BuscaInodoLibre(EXT_BYTE_MAPS *ext_bytemaps)
 	return (-1);
 }
 
+/**
+ * @brief busca el primer bloque de datos libre en el bytemap
+ */
 int BuscaBloqueLibre(EXT_BYTE_MAPS *ext_bytemaps)
 {
 	for (size_t i = PRIM_BLOQUE_DATOS; i < MAX_BLOQUES_PARTICION; i++)
@@ -106,6 +129,9 @@ int BuscaBloqueLibre(EXT_BYTE_MAPS *ext_bytemaps)
 	return (-1);
 }
 
+/**
+ * @brief busca la primera entrada libre del directorio
+ */
 int	BuscaEntradaDirLibre(EXT_ENTRADA_DIR *directorio)
 {
 	int i;
