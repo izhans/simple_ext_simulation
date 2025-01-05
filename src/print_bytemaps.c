@@ -3,7 +3,7 @@
 void	Printbytemaps(EXT_BYTE_MAPS *ext_bytemaps)
 {
 	size_t i;
-	printf("Inodos: ");
+	printf("Inodos:\t\t\t");
 	for (size_t i = 0; i < MAX_INODOS; i++)
 		printf("%u ", ext_bytemaps->bmap_inodos[i]);
 	printf("\n");
