@@ -68,8 +68,7 @@ typedef struct
 void	Printbytemaps(EXT_BYTE_MAPS *ext_bytemaps);
 int		ComprobarComando(char *strcomando, char *orden, char *argumento1, char *argumento2);
 void	LeeSuperBloque(EXT_SIMPLE_SUPERBLOCK *psup);
-int		BuscaFich(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
-			  char *nombre);
+int		BuscaFich(EXT_ENTRADA_DIR *directorio, char *nombre);
 void	Directorio(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos);
 int		Renombrar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 			  char *nombreantiguo, char *nombrenuevo, FILE *fich);

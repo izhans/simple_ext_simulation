@@ -1,6 +1,6 @@
 #include "cabeceras.h"
 
-int ErroresIniciales(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos, char *nombreorigen, char *nombredestino, int entrada_fichero);
+int ErroresIniciales(EXT_ENTRADA_DIR *directorio, char *nombreorigen, char *nombredestino, int entrada_fichero);
 int BuscaInodoLibre(EXT_BYTE_MAPS *ext_bytemaps);
 int BuscaBloqueLibre(EXT_BYTE_MAPS *ext_bytemaps);
 int	BuscaEntradaDirLibre(EXT_ENTRADA_DIR *directorio);
@@ -22,8 +22,8 @@ int	Copiar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 	EXT_DATOS *memdatos, char *nombreorigen, char *nombredestino, FILE *fich)
 {
 	// tratamiento de errores iniciales
-	int entrada_fichero = BuscaFich(directorio, inodos, nombreorigen);
-	if (ErroresIniciales(directorio, inodos, nombreorigen, nombredestino, entrada_fichero))
+	int entrada_fichero = BuscaFich(directorio, nombreorigen);
+	if (ErroresIniciales(directorio, nombreorigen, nombredestino, entrada_fichero))
 		return (1);
 
 	// buscar inodo libre
@@ -88,15 +88,15 @@ int	Copiar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 /**
  * @brief checkea si hay errores iniciales
  */
-int ErroresIniciales(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
-	char *nombreorigen, char *nombredestino, int entrada_fichero)
+int ErroresIniciales(EXT_ENTRADA_DIR *directorio, char *nombreorigen, 
+	char *nombredestino, int entrada_fichero)
 {
 	if (!entrada_fichero)
 	{
 		printf("ERROR: El fichero %s no existe\n", nombreorigen);
 		return (1);
 	}
-	if (BuscaFich(directorio, inodos, nombredestino))
+	if (BuscaFich(directorio, nombredestino))
 	{
 		printf("ERROR: El fichero %s ya existe\n", nombredestino);
 		return (1);

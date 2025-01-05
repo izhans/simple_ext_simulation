@@ -1,8 +1,12 @@
 #include "cabeceras.h"
 
-int		BuscaFich(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos, char *nombre)
+/**
+ * @brief busca la entrada de directorio de un fichero por su nombre
+ * @param directorio el directorio con las entradas
+ * @param nombre el nombre del fichero a buscar
+ */
+int		BuscaFich(EXT_ENTRADA_DIR *directorio, char *nombre)
 {
-	(void) inodos;
 	int i;
 
 	i = 1; // empieza en 1 por que la entrada 0 es la del directorio (.)

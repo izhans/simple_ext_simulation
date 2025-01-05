@@ -17,7 +17,7 @@ int	Imprimir(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos, EXT_DATOS *mem
 	EXT_SIMPLE_INODE fichero;
 	EXT_DATOS bloque;
 
-	entrada_fichero = BuscaFich(directorio, inodos, nombre);
+	entrada_fichero = BuscaFich(directorio, nombre);
 	if (!entrada_fichero)
 	{
 		printf("ERROR: No se ha encontrado el fichero %s\n", nombre);

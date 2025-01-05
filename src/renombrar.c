@@ -11,13 +11,13 @@
 int	Renombrar(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos,
 	char *nombreantiguo, char *nombrenuevo, FILE *fich)
 {
-	int entrada_fichero = BuscaFich(directorio, inodos, nombreantiguo);
+	int entrada_fichero = BuscaFich(directorio, nombreantiguo);
 	if (!entrada_fichero)
 	{
 		printf("ERROR: El fichero %s no existe\n", nombreantiguo);
 		return (1);
 	}
-	if (BuscaFich(directorio, inodos, nombrenuevo))
+	if (BuscaFich(directorio, nombrenuevo))
 	{
 		printf("ERROR: El fichero %s ya existe\n", nombrenuevo);
 		return (1);
