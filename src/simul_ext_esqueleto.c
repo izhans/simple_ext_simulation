@@ -53,41 +53,27 @@ int main()
 		} while (ComprobarComando(comando, orden, argumento1, argumento2) != 0);
 
 		if (strcmp(orden, "info") == 0)
-		{
 			LeeSuperBloque(&ext_superblock);
-			continue;
-		}
-		if (strcmp(orden, "bytemaps") == 0)
-		{
+		
+		else if (strcmp(orden, "bytemaps") == 0)
 			Printbytemaps(&ext_bytemaps);
-			continue;
-		}
-		if (strcmp(orden, "dir") == 0)
-		{
+		
+		else if (strcmp(orden, "dir") == 0)
 			Directorio(directorio, &ext_blq_inodos);
-			continue;
-		}
-		if (strcmp(orden, "imprimir") == 0)
-		{
+		
+		else if (strcmp(orden, "imprimir") == 0)
 			Imprimir(directorio, &ext_blq_inodos, memdatos, argumento1);
-			continue;
-		}
-		if (strcmp(orden, "rename") == 0)
-		{
+		
+		else if (strcmp(orden, "rename") == 0)
 			Renombrar(directorio, &ext_blq_inodos, argumento1, argumento2, fent);
-			continue;
-		}
-		if (strcmp(orden, "remove") == 0)
-		{
+		
+		else if (strcmp(orden, "remove") == 0)
 			Borrar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, argumento1, fent);
-			continue;
-		}
-		if (strcmp(orden, "copy") == 0)
-		{
+		
+		else if (strcmp(orden, "copy") == 0)
 			Copiar(directorio, &ext_blq_inodos, &ext_bytemaps, &ext_superblock, memdatos, argumento1, argumento2, fent);
-			continue;
-		}
-		if (strcmp(orden, "salir") == 0)
+		
+		else if (strcmp(orden, "salir") == 0)
 		{
 			fclose(fent);
 			return 0;
