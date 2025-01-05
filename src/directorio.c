@@ -1,5 +1,10 @@
 #include "cabeceras.h"
 
+/**
+ * @brief lista los ficheros que se encuentran en el directorio
+ * @param directorio las entradas del directorio
+ * @param inodos la lista de inodos
+ */
 void	Directorio(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos)
 {
 	int i;
@@ -27,5 +32,4 @@ void	Directorio(EXT_ENTRADA_DIR *directorio, EXT_BLQ_INODOS *inodos)
 		}
 		i++;
 	}
-	
 }
